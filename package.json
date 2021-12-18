@@ -14,16 +14,19 @@
     "@emotion/react": "^11.7.1",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.4",
     "@mui/material": "^5.2.4",
     "@mui/styles": "^5.2.3",
     "@reduxjs/toolkit": "^1.7.1",
     "cookies-js": "^1.2.3",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.0.1",
+    "formik": "^2.2.9",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
     "redux-persist-cookie-storage": "^1.0.0",
-    "redux-persist-electron-storage": "^2.1.0"
+    "redux-persist-electron-storage": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "electron": "^15.0.0",

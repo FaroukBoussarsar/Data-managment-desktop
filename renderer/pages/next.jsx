@@ -1,42 +1,62 @@
-import React from 'react';
-import Head from 'next/head';
-import { makeStyles, createStyles } from '@mui/styles';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Link from '../components/Link';
+import React from 'react';
+import Layout from '../components/Layout';
+import { Formik, useFormik } from 'formik';
+import * as yup from 'yup';
+import { Button, TextField } from '@mui/material';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      textAlign: 'center',
-      paddingTop: theme.spacing(4),
-    },
-  })
-);
-
+const validationSchema = yup.object({
+ email: yup
+   .string('Enter your email')
+   .email('Enter a valid email')
+   .required('Email is required'),
+ password: yup
+   .string('Enter your password')
+   .min(8, 'Password should be of minimum 8 characters length')
+   .required('Password is required'),
+});
 function Next() {
-  const classes = useStyles({});
+  const formik = useFormik({
+    initialValues: {
+      email: 'foobar@example.com',
+      password: 'foobar',
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
-    <React.Fragment>
-      <Head>
-        <title>Next - Nextron (with-javascript-material-ui)</title>
-      </Head>
-      <div className={classes.root}>
-        <Typography variant="h4" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          with Nextron
-        </Typography>
-        <Typography gutterBottom>
-          <Link href="/home">Go to the home page</Link>
-        </Typography>
-        <Button variant="contained" color="primary">
-          Do nothing button
+   <Layout>
+     <Typography variant='h4'>Add New Client</Typography>
+     <form onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          id="email"
+          name="email"
+          label="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
+        <TextField
+          fullWidth
+          id="password"
+          name="password"
+          label="Password"
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
         </Button>
-      </div>
-    </React.Fragment>
+      </form>
+     </Layout>
   );
 };
 
